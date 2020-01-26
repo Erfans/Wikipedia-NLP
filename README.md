@@ -1,14 +1,25 @@
 Steps
 =====
 Parse wiki dump to text using wiki extractor:
+
 ```
-python WikiExtractor.py -o parsed -b 5M --templates parsed/templates --processes 2 wikidump/enwiki-20191101-pages-articles-multistream.xml
+python wikiextractor/WikiExtractor.py  wikidump/enwiki-20191101-pages-articles-multistream.xml \
+        --json \
+        --processes 4 \
+        --templates parsed/templates \
+        --output ./parsed \
+        --bytes 2M \
+        --sections \
+        --lists \
+        --min_text_length 0 \
+        --filter_disambig_pages
 ```
 
 output:
+
 ```
-INFO: Finished 2-process extraction of 5963484 articles in 300744.7s (19.8 art/s)
-INFO: total of page: 10469833, total of articl page: 5963484; total of used articl page: 5963484
+INFO: Finished 3-process extraction of 5828932 articles in 267726.0s (21.8 art/s)
+INFO: total of page: 10469833, total of articl page: 5963484; total of used articl page: 5828932
 ```
 
 Used Wiki Dump
