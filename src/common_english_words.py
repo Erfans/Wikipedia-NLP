@@ -1,5 +1,4 @@
 import json
-import re
 import enchant
 
 en = enchant.Dict("en_US")

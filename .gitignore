@@ -2,3 +2,5 @@
 wikidump
 parsed
 article_tokens
+doc_me
+src/__pycache__/
