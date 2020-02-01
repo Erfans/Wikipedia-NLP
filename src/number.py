@@ -2,7 +2,7 @@ import json
 import re
 import util
 
-with open('../processed/tokens.json') as tokens_file:
+with open('../results/tokens.json') as tokens_file:
     print("Reading data")
     tokens = json.load(tokens_file)
     print("Filtering data")
@@ -14,6 +14,6 @@ with open('../processed/tokens.json') as tokens_file:
 
 print("Writing data")
 # write the file in json format
-with open("../processed/int.json", "a+") as out_file:
+with open("../results/int.json", "a+") as out_file:
     out_file.write(json.dumps(dict(sorted_list)))
 print("Writing is completed")

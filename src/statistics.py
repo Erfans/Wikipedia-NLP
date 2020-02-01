@@ -1,6 +1,18 @@
 import json
 import os
-import util
+import re
+
+import enchant
+
+en = enchant.Dict("en_US")
+
+article_counter = 0
+total_tokens = 0
+unique_tokens = 0
+total_words = 0
+unique_words = 0
+total_english_words = 0
+unique_english_words = 0
 
 word_bag = {}
 broken_lines = []
@@ -20,6 +32,9 @@ for folder_path in sorted(os.listdir(source)):
 
                     for line in f.readlines():
                         if len(line):
+
+                            article_counter += 1
+
                             try:
                                 page = json.loads(line)
                                 for w in page['words']:
@@ -30,11 +45,21 @@ for folder_path in sorted(os.listdir(source)):
                             except:
                                 broken_lines.append(line)
 
-print("Writing data")
-destination = '../results/tokens.json'
-with open(destination, "a+") as out_file:
-    out_file.write(json.dumps(util.sort_tokens_dict(word_bag)))
+if len(broken_lines):
+    print("===== broken lines =====")
+    print(broken_lines)
 
-print("Writing is completed.")
-print("Broken lines:")
-print(broken_lines)
+total_tokens = sum(word_bag.values())
+unique_tokens = len(word_bag)
+pattern = re.compile(r'^[a-z]+$')
+alphabet_words = dict(filter(lambda x: pattern.match(x[0]), word_bag.items()))
+english_words = dict(filter(lambda x: en.check(x[0]), word_bag.items()))
+
+print("===== results =====")
+print("Number of articles: " + str(article_counter))
+print("Total tokens: " + str(sum(word_bag.values())))
+print("Unique tokens: " + str(len(word_bag)))
+print("Total words: " + str(sum(alphabet_words.values())))
+print("Unique words: " + str(len(alphabet_words)))
+print("Total english words: " + str(sum(english_words.values())))
+print("Unique english words: " + str(len(english_words)))

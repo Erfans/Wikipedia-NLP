@@ -1,7 +1,7 @@
 import json
 import re
 
-with open('../processed/tokens.json') as tokens_file:
+with open('../results/tokens.json') as tokens_file:
     print("Reading data")
     tokens = json.load(tokens_file)
     print("Filtering data")
@@ -15,6 +15,6 @@ with open('../processed/tokens.json') as tokens_file:
 
 print("Writing data")
 # write the file in json format
-with open("../processed/common_words.json", "a+") as out_file:
+with open("../results/common_words.json", "a+") as out_file:
     out_file.write(json.dumps([i[0] for i in sorted_list]))
 print("Writing is completed")
